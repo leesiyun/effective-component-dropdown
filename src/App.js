@@ -1,22 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import Hamburger from "hamburger-react";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Hamburger
+          direction="right"
+          size={32}
+          color="red"
+          duration={0.1}
+          onToggle={(toggle) => {
+            if (toggle) {
+              console.log("open menu");
+            } else {
+              console.log("close menu");
+            }
+          }}
+        />
       </header>
     </div>
   );
