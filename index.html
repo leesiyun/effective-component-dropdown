@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>時間範囲チェッカー</title>
+    <link rel="shortcut icon" href="#" />
+  </head>
+
+  <body>
+    <div>
+      <span>結果：</span>
+      <span class="result" />
+    </div>
+
+    <br />
+
+    <span>時間範囲を指定してください。 </span>
+    <div>
+      <label for="startTime">開始時刻</label>
+      <select name="start-time" id="startTime" onchange="checkTimeRange()">
+        <option value="" selected>未選択</option>
+      </select>
+
+      &nbsp;
+
+      <label for="endTime">終了時刻</label>
+      <select name="end-time" id="endTime" onchange="checkTimeRange()">
+        <option value="" selected>未選択</option>
+      </select>
+    </div>
+    <span class="start-time-validation" style="color: #ff0a00"></span>
+
+    <br />
+
+    <div>
+      <span>判断する特定時刻を選択してください。</span>
+      <select
+        name="target-time"
+        class="target-time"
+        onchange="checkTimeRange()"
+      >
+        <option value="" selected>未選択</option>
+      </select>
+    </div>
+    <span class="target-time-validation" style="color: #ff0a00"></span>
+
+    <script src="app.js"></script>
+  </body>
+</html>
