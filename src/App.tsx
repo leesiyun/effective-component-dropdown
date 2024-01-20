@@ -1,11 +1,13 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Layout from './components/Layout';
-import Home from './routes/home';
-import Profile from './routes/profile';
-import Login from './routes/login';
-import CreateAccount from './routes/create-account';
-import { createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import Layout from './components/Layout'
+import Home from './routes/home'
+import Profile from './routes/profile'
+import Login from './routes/login'
+import CreateAccount from './routes/create-account'
+import { createGlobalStyle } from 'styled-components'
+import reset from 'styled-reset'
+import { useEffect, useState } from 'react'
+import LoadingScreen from './components/LoadingScreen'
 
 const router = createBrowserRouter([
   {
@@ -30,7 +32,7 @@ const router = createBrowserRouter([
     path: '/create-account',
     element: <CreateAccount />,
   },
-]);
+])
 
 const GlobalStyle = createGlobalStyle`
 ${reset};
@@ -42,13 +44,25 @@ body {
     color: white;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-`;
+`
 
-const App = () => (
-  <>
-    <GlobalStyle />
-    <RouterProvider router={router} />
-  </>
-);
+const App = () => {
+  const [isLoading, setLoading] = useState(true)
+  const init = async () => {
+    // wait for firebase
+    setLoading(false)
+  }
 
-export default App;
+  useEffect(() => {
+    init()
+  }, [])
+
+  return (
+    <>
+      <GlobalStyle />
+      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
+    </>
+  )
+}
+
+export default App
