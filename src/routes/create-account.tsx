@@ -10,6 +10,7 @@ import {
   Form,
   Input,
   Switcher,
+  Error,
 } from '../components/AuthComponents'
 
 const CreateAccount = () => {
