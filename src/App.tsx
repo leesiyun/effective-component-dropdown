@@ -1,14 +1,16 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { createGlobalStyle } from 'styled-components'
+import reset from 'styled-reset'
+
 import Layout from './components/Layout'
 import Home from './routes/home'
 import Profile from './routes/profile'
 import Login from './routes/login'
 import CreateAccount from './routes/create-account'
-import { createGlobalStyle } from 'styled-components'
-import reset from 'styled-reset'
-import { useEffect, useState } from 'react'
 import LoadingScreen from './components/LoadingScreen'
 import { auth } from './firebase'
+import styled from 'styled-components'
 
 const router = createBrowserRouter([
   {
@@ -35,18 +37,6 @@ const router = createBrowserRouter([
   },
 ])
 
-const GlobalStyle = createGlobalStyle`
-${reset};
-* {
-  box-sizing: border-box;
-}
-body {
-  background-color: black;
-    color: white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-`
-
 const App = () => {
   const [isLoading, setLoading] = useState(true)
   const init = async () => {
@@ -59,11 +49,29 @@ const App = () => {
   }, [])
 
   return (
-    <>
+    <Wrapper>
       <GlobalStyle />
       {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
-    </>
+    </Wrapper>
   )
 }
 
 export default App
+
+const Wrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+`
+
+const GlobalStyle = createGlobalStyle`
+${reset};
+* {
+  box-sizing: border-box;
+}
+body {
+  background-color: black;
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+`
