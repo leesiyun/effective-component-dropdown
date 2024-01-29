@@ -1,7 +1,12 @@
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { styled } from 'styled-components'
 
+import { auth } from '../firebase'
+
 const CreateAccount = () => {
+  const navigate = useNavigate()
   const [isLoading, setLoading] = useState(false)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -18,23 +23,37 @@ const CreateAccount = () => {
     if (name === 'password') return setPassword(value)
   }
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    if (isLoading || name === '' || email === '' || password === '') return
+
     try {
-      // create an account
-      // set the name of the user.
-      // redirect to the home page
+      setLoading(true)
+
+      const credentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+
+      console.log(credentials.user)
+
+      await updateProfile(credentials.user, {
+        displayName: name,
+      })
+
+      navigate('/')
     } catch (e) {
       // setError
     } finally {
       setLoading(false)
     }
-    console.log(name, email, password)
   }
 
   return (
     <Wrapper>
-      <Title>Login to App</Title>
+      <Title>Join App</Title>
       <Form onSubmit={onSubmit}>
         <Input
           onChange={onChange}
