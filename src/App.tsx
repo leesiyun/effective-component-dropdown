@@ -4,6 +4,7 @@ import { createGlobalStyle } from 'styled-components'
 import reset from 'styled-reset'
 
 import Layout from './components/Layout'
+import ProtectedRoute from './components/ProtectedRoute'
 import Home from './routes/home'
 import Profile from './routes/profile'
 import Login from './routes/login'
@@ -15,7 +16,11 @@ import styled from 'styled-components'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: '',
